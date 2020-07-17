@@ -1,0 +1,40 @@
+{
+  "name": "formulog-syntax",
+  "displayName": "Formulog Syntax",
+  "description": "Language support for Formulog code",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.47.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "formulog",
+        "aliases": [
+          "Formulog",
+          "formulog"
+        ],
+        "extensions": [
+          "flg"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "formulog",
+        "scopeName": "source.formulog",
+        "path": "./syntaxes/formulog.tmLanguage.json"
+      }
+    ]
+  },
+  "scripts": {
+    "build": "js-yaml syntaxes/formulog.tmLanguage.yaml > syntaxes/formulog.tmLanguage.json"
+  },
+  "devDependencies": {
+    "js-yaml": "^3.14.0"
+  }
+}

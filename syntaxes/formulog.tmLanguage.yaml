@@ -1,0 +1,91 @@
+# Formulog language syntax file
+# Maintainer: Eric Zhang
+# Based loosely off of `flg.vim`, consulting the ANTLR grammar `Formulog.g4`
+
+$schema: https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json
+name: Formulog
+patterns:
+  - include: "#comment"
+  - include: "#expression"
+  - include: "#keyword"
+  - include: "#annotation"
+  - include: "#formula"
+  - include: "#relation"
+  - include: "#type"
+repository:
+  comment:
+    # Formulog seems to only support block comments, at the moment
+    name: comment.block.formulog
+    begin: \(\*
+    end: \*\)
+    patterns:
+      - name: strong.formulog
+        match: \b(TODO|FIXME|XXX)\b
+  keyword:
+    patterns:
+      - name: keyword.control.formulog
+        match: \b(type|input|output|match|let|if|then|else|end|fun|in|with|uninterpreted|and|sort)\b|=>|:-|\|
+      - name: keyword.operator.formulog
+        match: ~|#=|::|&|\+|-|\*|\/\\|\\\/|!|,|=
+  annotation:
+    # For example, @topdown and @bottomup and @external
+    name: storage.type.annotation.formulog
+    match: "@[a-z][a-zA-Z0-9_]*"
+  formula:
+    name: string.regexp.formumlog
+    begin: "`"
+    end: "`"
+    patterns:
+      - include: "#comment"
+      - include: "#expression"
+      - include: "#keyword"
+      - include: "#relation"
+      - include: "#type"
+  relation:
+    # This pattern encompasses both relations and functions, as well as constructors like some('a)
+    name: entity.name.function.formulog
+    match: \b[a-z][a-zA-Z0-9_]*(?=\s*\()
+  type:
+    # This includes nullary functions and type constructors
+    patterns:
+      - name: entity.name.type.formulog
+        match: \b(i32|i64|fp32|fp64|list|bool|option|cmp|string|smt|bv|fp|sym|int|array)\b|'[a-z][a-zA-Z0-9_]*
+      - name: support.type.formulog
+        match: \b[a-z][a-zA-Z0-9_]*\b
+  expression:
+    name: meta.expression.formulog
+    patterns:
+      - include: "#literal"
+      - include: "#variable"
+  literal:
+    name: literal.formulog
+    patterns:
+      - include: "#string"
+      - include: "#number"
+      - include: "#constant"
+  variable:
+    name: variable.other.formulog
+    match: \b[A-Z_][a-zA-Z0-9_]*\b
+  string:
+    name: string.quoted.double.formulog
+    begin: '"'
+    end: '"'
+    patterns:
+      - name: constant.character.escape.formulog
+        match: \\.
+  number:
+    name: constant.numeric.formulog
+    patterns:
+      # Hex number
+      - name: constant.numeric.formulog
+        match: ([+-])?0(x|X)[0-9a-fA-F]+[Ll]?\b
+      # Decimal floating point
+      - name: constant.numeric.formulog
+        match: ([+-])?([0-9]*\.[0-9]+|[0-9]+)([Ee][+-]?[0-9]+)?[FfDd]?\b
+      # Decimal integer
+      - name: constant.numeric.formulog
+        match: ([+-])?[0-9]+[Ll]?\b
+  constant:
+    name: constant.language.formulog
+    match: true|false|nil
+scopeName: source.formulog
