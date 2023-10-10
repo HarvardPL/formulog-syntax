@@ -40,7 +40,7 @@
       "patterns": [
         {
           "name": "keyword.control.formulog",
-          "match": "\\b(type|input|output|match|let|if|then|else|end|fun|in|with|uninterpreted|and|sort)\\b|=>|:-|\\|"
+          "match": "\\b(type|rel|match|let|if|then|else|end|fun|in|with|uninterpreted|and|sort)\\b|=>|:-|\\|"
         },
         {
           "name": "keyword.operator.formulog",

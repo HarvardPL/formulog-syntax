@@ -2,7 +2,8 @@
   "name": "formulog-syntax",
   "displayName": "Formulog Syntax",
   "description": "Language support for Formulog code",
-  "version": "0.0.1",
+  "repository": "https://github.com/HarvardPL/formulog-syntax",
+  "version": "0.1.0",
   "engines": {
     "vscode": "^1.47.0"
   },
